@@ -30,13 +30,13 @@ class DirectoryHandler(PatternMatchingEventHandler):
         print(event.src_path, event.event_type)  # print now only for debug
 
         # handle subdirectories by getting the file path after splicing PROJECT_HOME
-        filepath = event.src_path[27:]
+        filepath = event.src_path[len(PROJECT_HOME):]
         file_parts = filepath.split("\\")
         toDirectory = self.updateDirectory
         if len(file_parts) > 2: # root directory and filename expected (2)
             for i in range(1, len(file_parts)): #  skip root directory
                 toDirectory += "\\" + file_parts[i]
-        
+
 	    # copy to xampp directory
         shutil.copy2(event.src_path, toDirectory)
 
